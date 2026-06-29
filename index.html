@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unified Band 9 IELTS Engine</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; padding: 20px; }
+        .app-container { max-width: 850px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .foundation { background: #fff5f5; padding: 15px; border-left: 6px solid #e74c3c; margin-bottom: 20px; font-size: 0.9em; }
+        .input-group { margin: 20px 0; padding: 15px; background: #fdfdfd; border-left: 6px solid #27ae60; }
+        .anchor-text { font-size: 0.95em; color: #2c3e50; font-weight: 600; background: #f1f8e9; padding: 10px; display: block; margin-bottom: 8px; border-radius: 4px; border: 1px solid #c8e6c9; }
+        textarea { width: 100%; height: 60px; border: 1px solid #bdc3c7; padding: 10px; }
+        .b3 { color: #c0392b; font-weight: bold; } .b9 { color: #27ae60; font-weight: bold; } 
+        .gram { background-color: #f1c40f; padding: 2px; border-radius: 3px; font-weight: bold; }
+        button { padding: 10px 15px; cursor: pointer; background: #27ae60; color: white; border: none; margin-top: 5px; }
+        #review { margin-top: 25px; padding: 20px; border: 1px solid #bdc3c7; display: none; background: #f1f2f6; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <h2 id="level-title">Topic 1: Hometown</h2>
+    <div class="foundation"><strong>Structural Foundation (Basic):</strong> <span id="p-foundation"></span></div>
+    <div id="drill-area">
+        <div class="input-group"><label>Scene:</label><span class="anchor-text" id="p-sit"></span><textarea></textarea></div>
+        <div class="input-group"><label>Challenge:</label><span class="anchor-text" id="p-task"></span><textarea></textarea></div>
+        <div class="input-group"><label>Action:</label><span class="anchor-text" id="p-act"></span><textarea></textarea></div>
+        <div class="input-group"><label>Impact:</label><span class="anchor-text" id="p-res"></span><textarea></textarea></div>
+    </div>
+    <button onclick="evaluateDrill()">Submit & Audit</button>
+    <button onclick="nextLevel()">Next Topic</button>
+    <div id="review"></div>
+</div>
+
+<script>
+    const data = [
+        { t: "1. Hometown", f: "My <span class='b3'>hometown</span> is <span class='b3'>growing</span> fast. I <span class='b3'>lived</span> there and <span class='b3'>saw</span> <span class='b3'>buildings</span>.", s: "The <span class='gram'>longitudinal</span> <span class='b9'>urbanization</span>...", t: "<span class='gram'>Notwithstanding</span> the <span class='b9'>traditional heritage</span>...", a: "<span class='gram'>While I was</span> there, <span class='gram'>never had I witnessed</span>...", r: "<span class='gram'>It would be more accurate to conclude</span>...", full: "The <span class='gram'>longitudinal</span> <span class='b9'>urbanization</span> of my hometown reflects deep <span class='b9'>demographic shifts</span>. <span class='gram'>Notwithstanding</span> the <span class='b9'>traditional heritage preservation</span>, it is evolving. <span class='gram'>While I was</span> residing there, <span class='gram'>never had I witnessed</span> such <span class='b9'>developmental momentum</span>. <span class='gram'>It would be more accurate to conclude</span> that this fosters <span class='b9'>community resilience</span>." },
+        { t: "2. Work/Career", f: "I <span class='b3'>like</span> my <span class='b3'>job</span>. It is <span class='b3'>hard</span> but I <span class='b3'>learn</span> <span class='b3'>things</span>.", s: "The <span class='gram'>professional trajectory</span>...", t: "<span class='gram'>Given the multifaceted complexity</span>...", a: "<span class='gram'>While I was navigating</span>...", r: "<span class='gram'>It would be more plausible to conclude</span>...", full: "The <span class='gram'>professional trajectory</span> of my career emphasizes <span class='b9'>clinical excellence</span>. <span class='gram'>Given the multifaceted complexity</span> of modern <span class='b9'>workplace dynamics</span>, adaptability is essential. <span class='gram'>While I was navigating</span> objectives, <span class='gram'>never had I attained</span> such <span class='b9'>clinical depth</span>. <span class='gram'>It would be more plausible to conclude</span> that this fosters <span class='b9'>career longevity</span>." },
+        // [Add topics 3-10 following the same pattern]
+    ];
+
+    let current = 0;
+    function load() {
+        document.getElementById('level-title').innerText = data[current].t;
+        document.getElementById('p-foundation').innerHTML = data[current].f;
+        document.getElementById('p-sit').innerHTML = data[current].s;
+        document.getElementById('p-task').innerHTML = data[current].t;
+        document.getElementById('p-act').innerHTML = data[current].a;
+        document.getElementById('p-res').innerHTML = data[current].r;
+    }
+    function nextLevel() { current = (current + 1) % data.length; load(); document.getElementById('review').style.display='none'; }
+    function evaluateDrill() { document.getElementById('review').innerHTML = `<h3>Audit</h3><p>${data[current].full}</p>`; document.getElementById('review').style.display = 'block'; }
+    load();
+</script>
+</body>
+</html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Band 9 Engine: Work & Career</title>
+    <title>Band 9 Engine: Visual Mastery</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; padding: 20px; }
         .app-container { max-width: 850px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
@@ -10,9 +10,9 @@
         .input-group { margin: 20px 0; padding: 15px; background: #fdfdfd; border-left: 6px solid #27ae60; }
         .anchor-text { font-size: 0.95em; color: #2c3e50; font-weight: 600; background: #f1f8e9; padding: 10px; display: block; margin-bottom: 8px; border-radius: 4px; border: 1px solid #c8e6c9; }
         textarea { width: 100%; height: 60px; border: 1px solid #bdc3c7; padding: 10px; }
-        .b3 { color: #c0392b; font-weight: bold; } 
-        .b9 { color: #27ae60; font-weight: bold; } 
-        .gram { background-color: #f1c40f; padding: 2px; border-radius: 3px; font-weight: bold; } 
+        .b3 { color: #c0392b; font-weight: bold; } /* Red */
+        .b9 { color: #27ae60; font-weight: bold; } /* Green */
+        .gram { background-color: #f1c40f; padding: 2px; border-radius: 3px; } /* Yellow */
         button { padding: 10px 15px; cursor: pointer; background: #27ae60; color: white; border: none; margin-top: 5px; }
         #review { margin-top: 25px; padding: 20px; border: 1px solid #bdc3c7; display: none; background: #f1f2f6; }
     </style>
@@ -20,7 +20,7 @@
 <body>
 
 <div class="app-container">
-    <h2 id="level-title">Level 2: Work & Career</h2>
+    <h2 id="level-title">Level 1: Hometown</h2>
     
     <div class="foundation">
         <strong>Structural Foundation (Basic):</strong> <span id="p-foundation"></span>
@@ -32,46 +32,31 @@
             <span class="anchor-text" id="p-sit"></span>
             <textarea id="sit"></textarea>
         </div>
-        <div class="input-group">
-            <label>Challenge (Complex Conjunction):</label>
-            <span class="anchor-text" id="p-task"></span>
-            <textarea id="task"></textarea>
-        </div>
-        <div class="input-group">
-            <label>Action (Past Progressive + Inversion):</label>
-            <span class="anchor-text" id="p-act"></span>
-            <textarea id="act"></textarea>
-        </div>
-        <div class="input-group">
-            <label>Impact (Academic Hedging):</label>
-            <span class="anchor-text" id="p-res"></span>
-            <textarea id="res"></textarea>
-        </div>
+        <!-- (Repeated for other inputs) -->
     </div>
     <button onclick="evaluateDrill()">Submit & Generate Band 9 Audit</button>
+    <button onclick="nextLevel()">Next Topic</button>
     <div id="review"></div>
 </div>
 
 <script>
-    const level = { 
-        f: "I <span class='b3'>like</span> my <span class='b3'>job</span> because I <span class='b3'>learn</span> new <span class='b3'>things</span>. It is <span class='b3'>hard</span> work, but I am <span class='b3'>good</span> at it.", 
-        s: "The <span class='gram'>professional trajectory</span> of my career emphasizes <span class='b9'>clinical excellence</span> through <span class='gram'>longitudinal</span> <span class='b9'>skill acquisition</span>...", 
-        t: "<span class='gram'>Given the multifaceted complexity</span> of modern <span class='b9'>workplace dynamics</span> and rigorous <span class='b9'>performance standards</span>...", 
-        a: "<span class='gram'>While I was navigating</span> my professional objectives, <span class='gram'>never had I attained</span> such <span class='b9'>comprehensive clinical depth</span>...", 
-        r: "<span class='gram'>It would be more plausible to conclude</span> that this fosters <span class='b9'>sustained career longevity</span> and significant <span class='b9'>institutional impact</span>...", 
-        full: "The <span class='gram'>professional trajectory</span> of my career emphasizes <span class='b9'>clinical excellence</span> through <span class='gram'>longitudinal</span> <span class='b9'>skill acquisition</span>. <span class='gram'>Given the multifaceted complexity</span> of modern <span class='b9'>workplace dynamics</span> and rigorous <span class='b9'>performance standards</span>, adaptability is essential. <span class='gram'>While I was navigating</span> my professional objectives, <span class='gram'>never had I attained</span> such <span class='b9'>comprehensive clinical depth</span>. <span class='gram'>It would be more plausible to conclude</span> that this fosters <span class='b9'>sustained career longevity</span> and significant <span class='b9'>institutional impact</span>." 
-    };
+    const levels = [
+        { t: "1. Hometown", f: "My <span class='b3'>hometown</span> is <span class='b3'>growing</span> very <span class='b3'>fast</span> and becoming a big <span class='b3'>city</span>. Although it is changing, it is still nice. When I <span class='b3'>lived</span> there, I <span class='b3'>saw</span> many new <span class='b3'>buildings</span>.", s: "The <span class='gram'>longitudinal</span> <span class='b9'>urbanization</span> of my hometown reflects deep <span class='b9'>demographic shifts</span> and systemic <span class='b9'>infrastructural expansion</span>...", full: "The <span class='gram'>longitudinal</span> <span class='b9'>urbanization</span> of my hometown reflects deep <span class='b9'>demographic shifts</span> and systemic <span class='b9'>infrastructural expansion</span>. <span class='gram'>Notwithstanding</span> the <span class='b9'>traditional heritage preservation</span> efforts, the city is evolving. <span class='gram'>While I was</span> experiencing the local transition, <span class='gram'>never had I witnessed</span> such <span class='b9'>accelerated developmental momentum</span>. <span class='gram'>It would be more accurate to conclude</span> that this fosters <span class='b9'>community resilience</span> and <span class='b9'>sustainable prosperity</span>." }
+    ];
 
-    document.getElementById('p-foundation').innerHTML = level.f;
-    document.getElementById('p-sit').innerHTML = level.s;
-    document.getElementById('p-task').innerHTML = level.t;
-    document.getElementById('p-act').innerHTML = level.a;
-    document.getElementById('p-res').innerHTML = level.r;
-
+    let current = 0;
     function evaluateDrill() {
-        document.getElementById('review').innerHTML = `<h3>Band 9 Audit Report</h3><p><strong>Full Model:</strong><br>${level.full}</p>`;
+        document.getElementById('review').innerHTML = `<h3>Band 9 Audit Report</h3><p><strong>Full Model:</strong><br>${levels[current].full}</p>`;
         document.getElementById('review').style.display = 'block';
     }
+    function nextLevel() {
+        current = (current + 1) % levels.length;
+        document.getElementById('level-title').innerText = levels[current].t;
+        document.getElementById('p-foundation').innerHTML = levels[current].f;
+        document.getElementById('p-sit').innerHTML = levels[current].s;
+        document.getElementById('review').style.display = 'none';
+    }
+    nextLevel();
 </script>
 </body>
 </html>
